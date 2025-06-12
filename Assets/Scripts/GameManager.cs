@@ -10,7 +10,7 @@ enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set;}
 
     //private GameState gameState = GameState.START_SCREEN;
 
