@@ -10,11 +10,11 @@ enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    private GameState gameState = GameState.START_SCREEN;
+    //private GameState gameState = GameState.START_SCREEN;
 
-    [SerializeField] GameObject obstaclePrefab;
-    [SerializeField] GameObject coinPrefab;
-    
+    //private uint score = 0;
+    //private uint coinsCollected = 0;
+        
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
