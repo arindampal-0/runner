@@ -15,4 +15,13 @@ public class Coin : MonoBehaviour
     {
         transform.Rotate(new Vector3(rotationSpeed * Time.deltaTime, 0, 0), Space.Self);
     }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            GameManager.instance.CollectCoin();
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -10,11 +10,22 @@ enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     //private GameState gameState = GameState.START_SCREEN;
 
     //private uint score = 0;
-    //private uint coinsCollected = 0;
-        
+    public uint coinsCollected { get; private set; }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            this.coinsCollected = 0;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,5 +36,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CollectCoin()
+    {
+        this.coinsCollected++;
     }
 }
