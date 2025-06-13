@@ -10,8 +10,8 @@ public class Platform : MonoBehaviour
     [SerializeField] private float rowStart = -30.0f;
     [SerializeField] private uint rows = 5;
     [SerializeField] private float rowGap = 10.0f;
-    [SerializeField] GameObject obstaclePrefab;
-    [SerializeField] GameObject coinPrefab;
+    [SerializeField] private GameObject obstaclePrefab;
+    [SerializeField] private GameObject coinPrefab;
 
     private List<GameObject> gameObjects;
 

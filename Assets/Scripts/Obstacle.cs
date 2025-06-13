@@ -25,7 +25,6 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            print("here");
             if (this.shatteredObstaclePrefab != null)
             {
                 Vector3 position = this.transform.position;
