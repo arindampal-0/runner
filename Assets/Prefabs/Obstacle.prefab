@@ -103,7 +103,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -121,4 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f68ba7592c9444c87c53891e5efc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceAmount: 10
+  shatteredObstaclePrefab: {fileID: 1986737133669090866, guid: 36ddfaa5a4c017640bba02f0aceeebbd, type: 3}

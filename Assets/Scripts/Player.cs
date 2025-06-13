@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody>();
         moveAction = InputSystem.actions.FindAction("Move", true);
         direction = Vector2.zero;
     }
