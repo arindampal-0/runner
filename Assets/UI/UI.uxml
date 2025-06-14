@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UI.uss?fileID=7433441132597879392&amp;guid=bc921aba49fc6f041b3c6fcfe974c67d&amp;type=3#UI" />
+    <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement name="MainMenu" class="menu hide">
+            <ui:Label text="Runner" name="Title" style="-unity-text-align: middle-center; font-size: 80%; -unity-font-style: normal; color: rgb(23, 74, 138);" />
+            <ui:Button text="Start&#10;" name="StartButton" class="btn" />
+            <ui:Button text="Quit" name="QuitButton" emoji-fallback-support="false" class="btn" />
+        </ui:VisualElement>
+        <ui:VisualElement name="HUD" class="hide" style="flex-grow: 1;">
+            <ui:Label text="0" name="Score" style="font-size: 200%; position: absolute; top: 0; color: rgb(0, 54, 124); right: 0; left: 0; bottom: auto; -unity-text-align: middle-center;" />
+            <ui:VisualElement name="CoinScoreBox" style="flex-grow: 1; top: 10px; right: 10px; position: absolute;">
+                <ui:Label text="0" parse-escape-sequences="false" name="CoinScore" style="font-size: 80%; color: rgb(0, 54, 124);" />
+                <ui:VisualElement name="CoinIcon" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:Button text="||" name="PauseButton" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PauseMenu" class="menu hide" style="flex-grow: 1;">
+            <ui:Button text="Resume&#10;" name="ResumeButton" class="btn" />
+            <ui:Button text="Main Menu" name="MainMenuButton" emoji-fallback-support="false" class="btn" />
+        </ui:VisualElement>
+        <ui:VisualElement name="GameOverMenu" class="hide" style="flex-grow: 0; width: auto;">
+            <ui:VisualElement name="Score" style="flex-grow: 0; flex-shrink: 1; flex-direction: row; justify-content: center;">
+                <ui:Label text="Score:" name="ScoreLabel" style="font-size: 25%; color: rgb(23, 73, 137); -unity-font-style: bold; -unity-text-align: middle-center; height: 100%;" />
+                <ui:Label text="0" name="ScoreText" style="font-size: 50%; -unity-text-align: lower-center;" />
+                <ui:VisualElement style="flex-grow: 0; width: 5%;" />
+                <ui:Label text="Coins:" name="CoinLabel" style="font-size: 25%; color: rgb(0, 66, 124); -unity-font-style: bold; -unity-text-align: middle-center; height: 100%;" />
+                <ui:Label text="0" name="CoinText" style="font-size: 50%; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+            <ui:Label text="Game Over" name="GameOverText" style="font-size: 100%; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(0, 66, 124);" />
+            <ui:VisualElement name="GameOverButtons" style="flex-grow: 0; display: flex; align-self: auto; align-content: auto; align-items: center; justify-content: center; height: auto; flex-direction: row;">
+                <ui:Button text="Restart&#10;" name="RestartButton" class="btn" />
+                <ui:Button text="Main Menu" name="MainMenuButton" emoji-fallback-support="false" class="btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

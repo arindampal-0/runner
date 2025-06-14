@@ -30,7 +30,7 @@ public class Platform : MonoBehaviour
                 gameObjects.Append(obj);
 
                 position.z = this.transform.position.z + 5.0f;
-                obj = Instantiate(coinPrefab, position, Quaternion.identity, this.transform);
+                obj = Instantiate(coinPrefab, position, Quaternion.Euler(0, 0, 90), this.transform);
                 gameObjects.Append(obj);
             }
         }
@@ -48,6 +48,9 @@ public class Platform : MonoBehaviour
 
     private void FixedUpdate()
     {
-        this.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        if (GameManager.Instance.Playing)
+        {
+            this.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        }
     }
 }

@@ -1,69 +1,159 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
-
-enum GameState
-{
-    START_SCREEN = 0,
-    PLAY_SCREEN,
-    PAUSE_SCREEN,
-    GAMEOVER_SCREEN
-}
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get; private set;}
+    private static GameManager _instance;
+    [HideInInspector] public static GameManager Instance { get { return _instance; } }
 
-    //private GameState gameState = GameState.START_SCREEN;
+    [SerializeField] private GameStateMachine CurrentState;
+    [HideInInspector] public StartState StartState;
+    [HideInInspector] public PlayState PlayState;
+    [HideInInspector] public PauseState PauseState;
+    [HideInInspector] public RestartState RestartState;
+    [HideInInspector] public GameOverState GameOverState;
 
-    //private uint score = 0;
-    public uint coinsCollected { get; private set; }
+    [HideInInspector] public uint Score { get; private set; }
+    [HideInInspector] public uint CoinsCollected { get; private set; }
 
-    [SerializeField] private GameObject platformPrefab;
+    [HideInInspector] public uint PlatformSpawnInterval = 8;
+    [HideInInspector] public float PlatformSpawnTick = 0;
+    [HideInInspector] public uint ScoreUpdateInterval = 1;
+    [HideInInspector] public float ScoreUpdateTick = 0;
+
+    [HideInInspector] public Boolean Playing;
+
+    [HideInInspector] public GameObject CameraObject;
+    [HideInInspector] public GameObject Player;
+    [HideInInspector] public List<GameObject> Platforms;
+
+    public UIController UIController;
+    public GameObject PlayerPrefab;
+    public GameObject PlatformPrefab;
     
-    private const float platformSpawnInterval = 8.0f;
-
-    private float ticks = 0;
-
     private void Awake()
     {
-        if (instance == null)
+        if (_instance != null && _instance != this)
         {
-            instance = this;
-            this.coinsCollected = 0;
+            Destroy(this.gameObject);
+        }
+        else if (_instance == null)
+        {
+            _instance = this;
+
+            StartState = this.AddComponent<StartState>();
+            PlayState = this.AddComponent<PlayState>();
+            PauseState = this.AddComponent<PauseState>();
+            GameOverState = this.AddComponent<GameOverState>();
         }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        this.CoinsCollected = 0;
+        this.Score = 0;
+
+        Platforms = new List<GameObject>();
+        CurrentState = StartState;
+        CurrentState.EnterState(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.ticks >= GameManager.platformSpawnInterval)
-        {
-            this.ticks = 0;
-            this.SpawnPlatform();
-        }
+        CurrentState.UpdateState(this);
+    }
 
-        this.ticks += Time.deltaTime;
+    public void SwitchState(GameStateMachine nextState)
+    {
+        Debug.Log("SwitchState");
+        Debug.Log(nextState);
+        CurrentState.ExitState(this);
+        CurrentState = nextState;
+        CurrentState.EnterState(this);
+    }
+
+    public void StartGame()
+    {
+        if (this.CurrentState is StartState)
+        {
+            this.SwitchState(this.PlayState);
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (this.CurrentState is PlayState)
+        {
+            this.SwitchState(this.PauseState);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        if (this.CurrentState is PauseState)
+        {
+            this.SwitchState(this.PlayState);
+        }
+    }
+
+    public void RestartGame()
+    {
+        if (this.CurrentState is GameOverState)
+        {
+            this.SwitchState(this.RestartState);
+        }
+    }
+
+    public void GameOver()
+    {
+        if (this.CurrentState is PlayState)
+        {
+            this.SwitchState(this.GameOverState);
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        if (this.CurrentState is PauseState || this.CurrentState is GameOverState)
+        {
+            this.SwitchState(this.StartState);
+        }
+    }
+
+    public void QuitGame()
+    {
+        if (this.CurrentState is StartState)
+        {
+            // Quit game
+
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#else
+            Application.Quit();
+#endif
+        }
+    }
+
+    public void ResetCoins()
+    {
+        this.CoinsCollected = 0;
     }
 
     public void CollectCoin()
     {
-        this.coinsCollected++;
+        this.CoinsCollected++;
+        // Update UI
     }
 
-    private void SpawnPlatform()
+    public void IncreaseScore(uint scoreIncrement)
     {
-        if (platformPrefab != null)
-        {
-            Instantiate(platformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("Platform Prefab is not set in GameManager.");
-        }
+        this.Score += scoreIncrement;
+        // Update UI
     }
 }

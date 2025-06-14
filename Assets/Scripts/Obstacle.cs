@@ -46,6 +46,7 @@ public class Obstacle : MonoBehaviour
                     }
                 }
                 Destroy(this.gameObject);
+                GameManager.Instance.GameOver();
             }
         }
     }
