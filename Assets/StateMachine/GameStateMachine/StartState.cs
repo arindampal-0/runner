@@ -21,7 +21,6 @@ public class StartState : GameStateMachine
         // Remove player and platforms if already exist.
         Destroy(gameManager.Player);
         gameManager.Player = null;
-        Debug.Log(gameManager.Platforms.Count);
         foreach(GameObject platform in gameManager.Platforms)
         {
             Destroy(platform);
