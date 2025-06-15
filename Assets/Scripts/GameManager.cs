@@ -45,10 +45,11 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
 
-            StartState = this.AddComponent<StartState>();
-            PlayState = this.AddComponent<PlayState>();
-            PauseState = this.AddComponent<PauseState>();
-            GameOverState = this.AddComponent<GameOverState>();
+            this.StartState = this.AddComponent<StartState>();
+            this.PlayState = this.AddComponent<PlayState>();
+            this.PauseState = this.AddComponent<PauseState>();
+            this.RestartState = this.AddComponent<RestartState>();
+            this.GameOverState = this.AddComponent<GameOverState>();
         }
     }
 
@@ -71,8 +72,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameStateMachine nextState)
     {
-        Debug.Log("SwitchState");
-        Debug.Log(nextState);
         CurrentState.ExitState(this);
         CurrentState = nextState;
         CurrentState.EnterState(this);
@@ -149,11 +148,30 @@ public class GameManager : MonoBehaviour
     {
         this.CoinsCollected++;
         // Update UI
+        this.UIController.UpdateHUDCoins(this.CoinsCollected);
+    }
+
+    public void ResetScore()
+    {
+        this.Score = 0;
     }
 
     public void IncreaseScore(uint scoreIncrement)
     {
         this.Score += scoreIncrement;
         // Update UI
+        this.UIController.UpdateHUDScore(this.Score);
+    }
+
+    public void SetHUDState()
+    {
+        this.UIController.UpdateHUDCoins(this.CoinsCollected);
+        this.UIController.UpdateHUDScore(this.Score);
+    }
+
+    public void SetGameOverUIState()
+    {
+        this.UIController.SetGameOverMenuCoins(this.CoinsCollected);
+        this.UIController.SetGameOverMenuScore(this.Score);
     }
 }

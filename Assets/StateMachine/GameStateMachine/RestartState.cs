@@ -12,6 +12,9 @@ public class RestartState : GameStateMachine
         // Reset coins collected
         gameManager.ResetCoins();
 
+        // Reset score
+        gameManager.ResetScore();
+
         // Unhook camera from player and reset its transform
         gameManager.CameraObject.transform.SetParent(null);
         gameManager.CameraObject.transform.position = new Vector3(12, 6, 0);

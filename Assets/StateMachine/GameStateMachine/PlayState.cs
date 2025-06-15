@@ -10,12 +10,12 @@ public class PlayState : GameStateMachine
 
     public override void EnterState(GameManager gameManager)
     {
-        Debug.Log("PlayState.EnterState");
         gameManager.Playing = true;
         pauseAction = InputSystem.actions.FindAction("Pause", true);
 
         // Show HUD
         gameManager.UIController.ShowHUD();
+        gameManager.SetHUDState();
     }
 
     public override void UpdateState(GameManager gameManager)
@@ -49,6 +49,7 @@ public class PlayState : GameStateMachine
 
         // Hide HUD
         gameManager.UIController.HideHUD();
+        gameManager.UIController.ResetHUDLabels();
     }
 
     private void SpawnPlatform(GameObject platformPrefab)

@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class StartState : GameStateMachine
 {
-    private GameObject mainMenuObj;
-
     public override void EnterState(GameManager gameManager)
     {
         // Reset ticks
         gameManager.ScoreUpdateTick = 0;
         gameManager.PlatformSpawnTick = 0;
 
-        // Reset coins collected
+        // Reset score and coins collected
+        gameManager.ResetScore();
         gameManager.ResetCoins();
 
         // Unhook camera from player and reset its transform
@@ -24,11 +23,11 @@ public class StartState : GameStateMachine
         gameManager.Player = null;
         foreach(GameObject platform in gameManager.Platforms)
         {
-            Destroy(platform);
+            GameObject.Destroy(platform);
         }
         gameManager.Platforms.Clear();
 
-        // Instantiate the main menu
+        // Show MainMenu
         gameManager.UIController.ShowMainMenu();
 
         // Instantiate new player and platforms
@@ -55,8 +54,8 @@ public class StartState : GameStateMachine
         {
             GameObject platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(10, 0, 0), Quaternion.identity);
             gameManager.Platforms.Append(platformObject);
-            platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
-            gameManager.Platforms.Append(platformObject);
+            GameObject platformObject2 = Instantiate(gameManager.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
+            gameManager.Platforms.Append(platformObject2);
         }
         else
         {
@@ -71,6 +70,7 @@ public class StartState : GameStateMachine
 
     public override void ExitState(GameManager gameManager)
     {
+        // Hide MainMenu
         gameManager.UIController.HideMainMenu();
     }
 }

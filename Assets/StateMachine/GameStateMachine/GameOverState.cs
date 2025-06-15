@@ -10,6 +10,7 @@ public class GameOverState : GameStateMachine
 
         // Show GameOverMenu
         gameManager.UIController.ShowGameOverMenu();
+        gameManager.SetGameOverUIState();
     }
 
     public override void UpdateState(GameManager gameManager)
@@ -21,6 +22,7 @@ public class GameOverState : GameStateMachine
     {
         // Hide GameOverMenu
         gameManager.UIController.HideGameOverMenu();
+        gameManager.UIController.ResetGameOverMenuLabels();
     }
 }
 

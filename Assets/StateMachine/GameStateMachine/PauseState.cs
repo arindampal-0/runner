@@ -5,7 +5,6 @@ public class PauseState : GameStateMachine
     private GameObject pauseMenuObject;
     public override void EnterState(GameManager gameManager)
     {
-        Debug.Log("PauseState.EnterState");
         gameManager.Playing = false;
 
         // Show PauseMenu
@@ -19,7 +18,6 @@ public class PauseState : GameStateMachine
 
     public override void ExitState(GameManager gameManager)
     {
-        Debug.Log("PauseState.ExitState");
         // Hide PauseMenu
         gameManager.UIController.HidePauseMenu();
     }

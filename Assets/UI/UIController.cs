@@ -82,7 +82,6 @@ public class UIController : MonoBehaviour
     }
     private void OnResumeButtonClicked()
     {
-        Debug.Log("ResumeButton clicked.");
         GameManager.Instance.ResumeGame();
     }
 
@@ -96,6 +95,12 @@ public class UIController : MonoBehaviour
         GameManager.Instance.GoToMainMenu();
     }
 
+    public void ResetHUDLabels()
+    {
+        this.hudScoreLabel.text = "0";
+        this.hudCoinsLabel.text = "0";
+    }
+
     public void UpdateHUDScore(uint score)
     {
         this.hudScoreLabel.text = score.ToString();
@@ -104,6 +109,12 @@ public class UIController : MonoBehaviour
     public void UpdateHUDCoins(uint coins)
     {
         this.hudCoinsLabel.text = coins.ToString();
+    }
+
+    public void ResetGameOverMenuLabels()
+    {
+        this.hudScoreLabel.text = "0";
+        this.hudCoinsLabel.text = "0";
     }
 
     public void SetGameOverMenuScore(uint score)
