@@ -52,9 +52,9 @@ public class RestartState : GameStateMachine
         if (gameManager.PlatformPrefab != null)
         {
             GameObject platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-            gameManager.Platforms.Append(platformObject);
+            gameManager.Platforms.Add(platformObject);
             platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
-            gameManager.Platforms.Append(platformObject);
+            gameManager.Platforms.Add(platformObject);
         }
         else
         {

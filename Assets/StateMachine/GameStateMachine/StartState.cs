@@ -21,9 +21,10 @@ public class StartState : GameStateMachine
         // Remove player and platforms if already exist.
         Destroy(gameManager.Player);
         gameManager.Player = null;
+        Debug.Log(gameManager.Platforms.Count);
         foreach(GameObject platform in gameManager.Platforms)
         {
-            GameObject.Destroy(platform);
+            Destroy(platform);
         }
         gameManager.Platforms.Clear();
 
@@ -53,9 +54,9 @@ public class StartState : GameStateMachine
         if (gameManager.PlatformPrefab != null)
         {
             GameObject platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-            gameManager.Platforms.Append(platformObject);
-            GameObject platformObject2 = Instantiate(gameManager.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
-            gameManager.Platforms.Append(platformObject2);
+            gameManager.Platforms.Add(platformObject);
+            platformObject = Instantiate(gameManager.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
+            gameManager.Platforms.Add(platformObject);
         }
         else
         {

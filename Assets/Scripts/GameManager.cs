@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    [HideInInspector] public static GameManager Instance { get { return _instance; } }
+    [HideInInspector] public static GameManager Instance { get; private set; }
 
     [SerializeField] private GameStateMachine CurrentState;
     [HideInInspector] public StartState StartState;
@@ -37,13 +36,13 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
-        else if (_instance == null)
+        else if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
 
             this.StartState = this.AddComponent<StartState>();
             this.PlayState = this.AddComponent<PlayState>();
@@ -58,10 +57,10 @@ public class GameManager : MonoBehaviour
     {
         this.CoinsCollected = 0;
         this.Score = 0;
+        this.Platforms = new List<GameObject>();
 
-        Platforms = new List<GameObject>();
-        CurrentState = StartState;
-        CurrentState.EnterState(this);
+        this.CurrentState = StartState;
+        this.CurrentState.EnterState(this);
     }
 
     // Update is called once per frame
@@ -136,6 +135,19 @@ public class GameManager : MonoBehaviour
 #else
             Application.Quit();
 #endif
+        }
+    }
+
+    public void SpawnPlatform()
+    {
+        if (this.PlatformPrefab != null)
+        {
+            GameObject platform = Instantiate(this.PlatformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
+            this.Platforms.Add(platform);
+        }
+        else
+        {
+            throw new System.Exception("Platform Prefab is not set in GameManager.");
         }
     }
 

@@ -23,7 +23,7 @@ public class PlayState : GameStateMachine
         if (gameManager.PlatformSpawnTick >= gameManager.PlatformSpawnInterval)
         {
             gameManager.PlatformSpawnTick = 0;
-            this.SpawnPlatform(gameManager.PlatformPrefab);
+            gameManager.SpawnPlatform();
         }
 
         gameManager.PlatformSpawnTick += Time.deltaTime;
@@ -50,17 +50,5 @@ public class PlayState : GameStateMachine
         // Hide HUD
         gameManager.UIController.HideHUD();
         gameManager.UIController.ResetHUDLabels();
-    }
-
-    private void SpawnPlatform(GameObject platformPrefab)
-    {
-        if (platformPrefab != null)
-        {
-            Instantiate(platformPrefab, new Vector3(-70, 0, 0), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("Platform Prefab is not set in GameManager.");
-        }
     }
 }

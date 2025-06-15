@@ -25,7 +25,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rb.AddForce(new Vector3(0, 0, moveValue.x * forceAmount), ForceMode.VelocityChange);
-        rb.position += new Vector3(0, 0, direction.x * speed * Time.deltaTime);
+        if (GameManager.Instance.Playing)
+        {
+            rb.position += new Vector3(0, 0, direction.x * speed * Time.deltaTime);
+        }
     }
 }
